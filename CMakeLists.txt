@@ -16,7 +16,12 @@ macro(target_generate_headers target_name)
     target_include_directories(${target_name} PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 endmacro()
 
+include(CTest)
+
 add_subdirectory(include)
 add_subdirectory(mylib)
 add_subdirectory(probdist)
 add_subdirectory(testu01)
+if(BUILD_TESTING)
+    add_subdirectory(examples)
+endif()
