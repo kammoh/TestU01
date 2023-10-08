@@ -23,3 +23,5 @@ target_sources(mylib PRIVATE
 	num2.c
 	tables.c
 	util.c)
+
+install(TARGETS mylib DESTINATION lib)

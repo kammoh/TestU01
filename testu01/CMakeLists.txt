@@ -118,3 +118,5 @@ target_sources(testu01 PRIVATE
 	fspectral.c
 	fvaria.c
 	fnpair.c)
+
+install(TARGETS testu01 DESTINATION lib)

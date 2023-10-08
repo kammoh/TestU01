@@ -18,3 +18,4 @@ target_sources(probdist PRIVATE
 	gofw.c
 	statcoll.c
 	wdist.c)
+install(TARGETS probdist DESTINATION lib)
