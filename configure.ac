@@ -1,12 +1,12 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-# AC_PREREQ(2.57)
-AC_INIT(TestU01, 1.2.3, lecuyer@iro.umontreal.ca)
+# AC_PREREQ([2.71])
+AC_INIT([TestU01],[1.2.3],[lecuyer@iro.umontreal.ca])
 AC_CONFIG_SRCDIR([mylib/num.c])
 AM_INIT_AUTOMAKE
-AC_CONFIG_HEADER([include/config.h])
-AC_CONFIG_HEADER([include/gdefconf.h])
+AC_CONFIG_HEADERS([include/config.h])
+AC_CONFIG_HEADERS([include/gdefconf.h])
 
 AC_CANONICAL_HOST
 
@@ -16,17 +16,25 @@ AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AC_PROG_LIBTOOL
+LT_INIT
 AC_CHECK_PROG(have_mathematica,math, yes, no) 
 if test "x$have_mathematica" = "xyes" ; then
    AC_DEFINE([HAVE_MATHEMATICA], 1, [Define when Mathematica is installed])
 fi
 
 # Checks for libraries.
-AC_CHECK_LIBM
+LT_LIB_M
 
 # Checks for header files.
-AC_HEADER_STDC
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS([sys/utsname.h unistd.h windows.h gmp.h stdint.h])
 
 # Checks for typedefs, structures, and compiler characteristics.

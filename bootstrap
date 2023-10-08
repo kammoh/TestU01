@@ -8,8 +8,9 @@
 cd include
 ./makedef
 cd ..
-libtoolize --copy --force
+glibtoolize --copy --force
 aclocal
 autoheader
 automake --add-missing --copy
 autoconf
+autoupdate
