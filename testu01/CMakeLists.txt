@@ -119,4 +119,4 @@ target_sources(testu01 PRIVATE
 	fvaria.c
 	fnpair.c)
 
-install(TARGETS testu01 DESTINATION lib)
+install(TARGETS testu01 DESTINATION ${CMAKE_INSTALL_LIBDIR})
