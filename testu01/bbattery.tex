@@ -69,7 +69,12 @@ extern double bbattery_pVal[];
  \endtab
 \code
 
+extern int bbattery_pass[];
+\endcode
+  \tab This array keeps pass/fail state of some tests. All unused entries must be set to -1.
+ \endtab
 
+\code
 extern char *bbattery_TestNames[];
 \endcode
   \tab This array keeps the names of each test from  the

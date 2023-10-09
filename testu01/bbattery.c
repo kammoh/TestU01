@@ -49,7 +49,7 @@
 
 #define LEN 120
 #define NAMELEN 30
-#define NDIM 200                  /* Dimension of extern arrays */
+#define NDIM 512                  /* Dimension of extern arrays */
 #define THOUSAND 1000
 #define MILLION (THOUSAND * THOUSAND)
 #define BILLION (THOUSAND * MILLION)
@@ -62,7 +62,9 @@
 #define ALPHABIT_NUM 9
 
 
-double bbattery_pVal[1 + NDIM] = { 0 };
+double bbattery_pVal[1 + NDIM] = { -1.0 };
+uint64_t bbattery_iValues[1 + NDIM] = { 0 };
+int bbattery_pass[1 + NDIM] = { -1 };
 char *bbattery_TestNames[1 + NDIM] = { 0 };
 int bbattery_NTests;
 
@@ -4035,7 +4037,7 @@ static double GetPLongest (int longest)
 
 /*-------------------------------------------------------------------------*/
 
-static void WriteReportFIPS_140_2 (
+static lebool WriteReportFIPS_140_2 (
    char *genName,                 /* Generator or file name */
    lebool Flag,                  /* = TRUE for a file, FALSE for a gen */
    int nbit,                      /* Number of bits */
@@ -4065,6 +4067,10 @@ static void WriteReportFIPS_140_2 (
    printf ("\n       Test          s-value        p-value    FIPS Decision\n");
    printf (" --------------------------------------------------------\n");
 
+   for (i = 0; i < bbattery_NTests; i++) {
+      bbattery_pVal[i] = -1.0;
+      bbattery_pass[i] = -1;
+   }
    /* Monobit results */
    j = 0;
    printf (" %-20s", bbattery_TestNames[j]);
@@ -4074,12 +4080,16 @@ static void WriteReportFIPS_140_2 (
    pRight = fbar_Binomial2 (Q, nbit);
    fmass_DeleteBinomial (Q);
    p = gofw_pDisc (pLeft, pRight);
+   bbattery_pVal[j] = p;
    gofw_Writep0 (p);
    if ((nbit <= 9725) || nbit >= 10275) {
       printf (" %10s", "Fail");
       failFlag = TRUE;
-   } else
+   } else {
       printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
 
    printf ("\n");
 
@@ -4088,155 +4098,204 @@ static void WriteReportFIPS_140_2 (
    for (i = 0; i < 16; i++)
       X += (double) ncount[i] * ncount[i];
    X = 16 * X / 5000 - 5000;
-   j = 1;
    printf (" %-16s", bbattery_TestNames[j]);
    printf ("%10.2f       ", X);
    p = fbar_ChiSquare2 (15, 12, X);
+   bbattery_pVal[j] = p;
    gofw_Writep0 (p);
    if ((X <= 2.16) || X >= 46.17) {
       printf (" %10s", "Fail");
       failFlag = TRUE;
-   } else
+   } else {
       printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n\n");
 
    /* Run results */
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun0[1]);
    if ((nrun0[1] <= 2315) || nrun0[1] >= 2685) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun0[2]);
    if ((nrun0[2] <= 1114) || nrun0[2] >= 1386) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun0[3]);
    if ((nrun0[3] <= 527) || nrun0[3] >= 723) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
-   printf ("\n");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun0[4]);
    if ((nrun0[4] <= 240) || nrun0[4] >= 384) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun0[5]);
    if ((nrun0[5] <= 103) || nrun0[5] >= 209) {
       failFlag = TRUE;
       printf (" %25s", "Fail");
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun0[6]);
    if ((nrun0[6] <= 103) || nrun0[6] >= 209) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun1[1]);
    if ((nrun1[1] <= 2315) || nrun1[1] >= 2685) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun1[2]);
    if ((nrun1[2] <= 1114) || nrun1[2] >= 1386) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun1[3]);
    if ((nrun1[3] <= 527) || nrun1[3] >= 723) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun1[4]);
    if ((nrun1[4] <= 240) || nrun1[4] >= 384) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
+   } else {
       printf (" %25s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun1[5]);
    if ((nrun1[5] <= 103) || nrun1[5] >= 209) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun1[6]);
    if ((nrun1[6] <= 103) || nrun1[6] >= 209) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
-   } else
-      printf (" %25s", "Pass");
+   } else {
+      printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n\n");
 
    /* Longest run results */
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d       ", longest0);
    p = GetPLongest (longest0);
+   bbattery_pVal[j] = p;
    gofw_Writep0 (p);
    if (longest0 >= 26) {
       printf (" %10s", "Fail");
       failFlag = TRUE;
-   } else
+   } else {
       printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
 
-   printf (" %-20s", bbattery_TestNames[++j]);
+   printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d       ", longest1);
    p = GetPLongest (longest1);
+   bbattery_pVal[j] = p;
    gofw_Writep0 (p);
    if (longest1 >= 26) {
       printf (" %10s", "Fail");
       failFlag = TRUE;
-   } else
+   } else {
       printf (" %10s", "Pass");
+      bbattery_pass[j] = TRUE;
+   }
+   ++j;
    printf ("\n");
+
+   util_Assert (j == bbattery_NTests, "FIPS_140_2:   j != bbattery_NTests");
 
    if (!failFlag) {
       printf (" ----------------------------------------------------------\n");
       printf (" All values are within the required intervals of FIPS-140-2\n");
    }
    printf ("\n\n\n");
+   return failFlag;
 }
 
 
@@ -4245,7 +4304,7 @@ static void WriteReportFIPS_140_2 (
 #define SAMPLE 625                /* 625 * 32 = 20000 */
 #define MASK4  15                 /* Mask of 4 bits */
 
-static void FIPS_140_2 (unif01_Gen * gen, char *filename)
+static lebool FIPS_140_2 (unif01_Gen * gen, char *filename)
 {
    int i, j;
    int nbit = 0;                  /* Number of bits */
@@ -4364,7 +4423,9 @@ static void FIPS_140_2 (unif01_Gen * gen, char *filename)
    strcpy (bbattery_TestNames[++j], "Longest run of 0: ");
    strcpy (bbattery_TestNames[++j], "Longest run of 1: ");
 
-   WriteReportFIPS_140_2 (genName, fileFlag, nbit, longest0, longest1,
+   bbattery_NTests = ++j;
+
+   return WriteReportFIPS_140_2 (genName, fileFlag, nbit, longest0, longest1,
       nrun0, nrun1, ncount);
 }
 
