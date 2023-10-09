@@ -4,7 +4,7 @@ set_target_properties(testu01 PROPERTIES C_STANDARD 99)
 
 target_link_libraries(testu01 testu01_include testu01_mylib testu01_probdist)
 
-target_generate_headers(testu01 
+set(HEADERS
 	unif01
 	ulcg
 	umrg
@@ -63,6 +63,37 @@ target_generate_headers(testu01
 	fspectral
 	fvaria
 	fnpair
+)
+
+target_generate_headers(testu01 ${HEADERS})
+
+set(HEADERS2 ${HEADERS}
+	../mylib/gdef
+	../mylib/addstr
+	../mylib/bitset
+	../mylib/chrono
+	../mylib/mystr
+	../mylib/num
+	../mylib/num2
+	../mylib/tables
+	../mylib/util
+	../probdist/fbar
+	../probdist/fdist
+	../probdist/finv
+	../probdist/fmass
+	../probdist/gofs
+	../probdist/gofw
+	../probdist/statcoll
+	../probdist/wdist
+	../include/gdefconf)
+
+list(TRANSFORM HEADERS2 APPEND ".h")
+list(TRANSFORM HEADERS2 PREPEND "${CMAKE_CURRENT_BINARY_DIR}/")
+
+set_target_properties(
+	testu01
+	PROPERTIES
+	PUBLIC_HEADER "${HEADERS2}"
 )
 
 target_sources(testu01 PRIVATE
@@ -126,4 +157,4 @@ target_sources(testu01 PRIVATE
 	fnpair.c
 )
 
-install(TARGETS testu01 DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS testu01 LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} PUBLIC_HEADER DESTINATION include)

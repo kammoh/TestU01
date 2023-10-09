@@ -64,6 +64,3 @@ check_library_exists(m pow "" LIBM_FOUND)
 if(LIBM_FOUND)
     target_link_libraries(testu01_include INTERFACE m)
 endif()
-
-# TODO(cwasser): Not supported:
-# HAVE_MATHEMATICA
