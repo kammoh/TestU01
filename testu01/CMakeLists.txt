@@ -1,6 +1,10 @@
 add_library(testu01)
-target_link_libraries(testu01 PUBLIC testu01_include mylib probdist)
-target_generate_headers(testu01
+
+set_target_properties(testu01 PROPERTIES C_STANDARD 99)
+
+target_link_libraries(testu01 testu01_include testu01_mylib testu01_probdist)
+
+target_generate_headers(testu01 
 	unif01
 	ulcg
 	umrg
@@ -58,7 +62,9 @@ target_generate_headers(testu01
 	fstring
 	fspectral
 	fvaria
-	fnpair)
+	fnpair
+)
+
 target_sources(testu01 PRIVATE
 	unif01.c
 	ulcg.c
@@ -117,6 +123,7 @@ target_sources(testu01 PRIVATE
 	fstring.c
 	fspectral.c
 	fvaria.c
-	fnpair.c)
+	fnpair.c
+)
 
 install(TARGETS testu01 DESTINATION ${CMAKE_INSTALL_LIBDIR})

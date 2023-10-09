@@ -1,6 +1,9 @@
-add_library(probdist)
-target_link_libraries(probdist PUBLIC testu01_include mylib)
-target_generate_headers(probdist
+add_library(testu01_probdist OBJECT)
+set_target_properties(testu01_probdist PROPERTIES C_STANDARD 99)
+target_link_libraries(testu01_probdist PUBLIC testu01_include testu01_mylib)
+target_include_directories(testu01_probdist PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+
+target_generate_headers(testu01_probdist
 	fmass
 	fdist
 	fbar
@@ -9,7 +12,7 @@ target_generate_headers(probdist
 	gofw
 	statcoll
 	wdist)
-target_sources(probdist PRIVATE
+target_sources(testu01_probdist PRIVATE
 	fmass.c
 	fdist.c
 	fbar.c

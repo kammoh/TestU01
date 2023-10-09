@@ -53,12 +53,14 @@ configure_file(config_cmake.h.in config.h @ONLY)
 add_library(testu01_include INTERFACE)
 target_compile_definitions(testu01_include INTERFACE HAVE_CONFIG_H)
 target_include_directories(testu01_include INTERFACE ${CMAKE_CURRENT_BINARY_DIR})
+
 if(WIN32)
-  target_compile_definitions(testu01_include INTERFACE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(testu01_include INTERFACE _CRT_SECURE_NO_WARNINGS)
 endif()
 
 include(CheckLibraryExists)
 check_library_exists(m pow "" LIBM_FOUND)
+
 if(LIBM_FOUND)
     target_link_libraries(testu01_include INTERFACE m)
 endif()
