@@ -4085,6 +4085,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nbit <= 9725) || nbit >= 10275) {
       printf (" %10s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4106,6 +4107,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((X <= 2.16) || X >= 46.17) {
       printf (" %10s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4119,6 +4121,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun0[1] <= 2315) || nrun0[1] >= 2685) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4131,6 +4134,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun0[2] <= 1114) || nrun0[2] >= 1386) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4143,6 +4147,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun0[3] <= 527) || nrun0[3] >= 723) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4154,6 +4159,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun0[4] <= 240) || nrun0[4] >= 384) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4166,6 +4172,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun0[5] <= 103) || nrun0[5] >= 209) {
       failFlag = TRUE;
       printf (" %25s", "Fail");
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4178,6 +4185,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun0[6] <= 103) || nrun0[6] >= 209) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4190,6 +4198,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun1[1] <= 2315) || nrun1[1] >= 2685) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4202,6 +4211,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun1[2] <= 1114) || nrun1[2] >= 1386) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4214,6 +4224,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun1[3] <= 527) || nrun1[3] >= 723) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4226,6 +4237,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun1[4] <= 240) || nrun1[4] >= 384) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4238,6 +4250,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun1[5] <= 103) || nrun1[5] >= 209) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4250,6 +4263,7 @@ static lebool WriteReportFIPS_140_2 (
    if ((nrun1[6] <= 103) || nrun1[6] >= 209) {
       printf (" %25s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4266,6 +4280,7 @@ static lebool WriteReportFIPS_140_2 (
    if (longest0 >= 26) {
       printf (" %10s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
@@ -4281,6 +4296,7 @@ static lebool WriteReportFIPS_140_2 (
    if (longest1 >= 26) {
       printf (" %10s", "Fail");
       failFlag = TRUE;
+      bbattery_pass[j] = FALSE;
    } else {
       printf (" %10s", "Pass");
       bbattery_pass[j] = TRUE;
