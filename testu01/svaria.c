@@ -1046,12 +1046,11 @@ static void WriteDataAppear (unif01_Gen * gen,
    long N, int r, int s, int L, long Q, long K, double n)
 {
    printf ("***********************************************************\n");
-   printf ("HOST = ");
    if (swrite_Host) {
+      printf ("HOST = ");
       gdef_WriteHostName ();
       printf ("\n");
-   } else 
-      printf ("\n\n");
+   }
    unif01_WriteNameGen (gen);
    printf ("\n");
    if (swrite_ExperimentName && strcmp (swrite_ExperimentName, "")) {
