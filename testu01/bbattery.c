@@ -158,6 +158,10 @@ static void WriteReport (
 {
    int j, co;
 
+   for (int i = 0; i < bbattery_NTests; i++) {
+      bbattery_pass[i] = -1;
+   }
+
    printf ("\n========= Summary results of ");
    printf ("%s", batName);
    printf (" =========\n\n");
@@ -215,8 +219,12 @@ static void WriteReport (
    for (j = 0; j < N; j++) {
       if (pVal[j] < 0.0)          /* That test was not done: pVal = -1 */
          continue;
-      if ((pVal[j] >= gofw_Suspectp) && (pVal[j] <= 1.0 - gofw_Suspectp))
+      if ((pVal[j] >= gofw_Suspectp) && (pVal[j] <= 1.0 - gofw_Suspectp)) {
+         bbattery_pass[j] = TRUE;
          continue;                /* That test was passed */
+      } else {
+         bbattery_pass[j] = FALSE;
+      }
       printf (" %2d ", TestNumber[j]);
       printf (" %-30s", bbattery_TestNames[j]);
       WritepVal (pVal[j]);
@@ -4067,7 +4075,7 @@ static lebool WriteReportFIPS_140_2 (
    printf ("\n       Test          s-value        p-value    FIPS Decision\n");
    printf (" --------------------------------------------------------\n");
 
-   for (i = 0; i < bbattery_NTests; i++) {
+   for (int i = 0; i < bbattery_NTests; i++) {
       bbattery_pVal[i] = -1.0;
       bbattery_pass[i] = -1;
    }
@@ -4091,7 +4099,6 @@ static lebool WriteReportFIPS_140_2 (
       bbattery_pass[j] = TRUE;
    }
    ++j;
-
    printf ("\n");
 
    /* Poker results */
@@ -4123,7 +4130,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4136,7 +4143,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4149,10 +4156,11 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
+   printf ("\n");
 
    printf (" %-20s", bbattery_TestNames[j]);
    printf (" %5d", nrun0[4]);
@@ -4161,7 +4169,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4174,7 +4182,7 @@ static lebool WriteReportFIPS_140_2 (
       printf (" %25s", "Fail");
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4187,7 +4195,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4200,7 +4208,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4213,7 +4221,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4226,7 +4234,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4252,7 +4260,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
@@ -4265,7 +4273,7 @@ static lebool WriteReportFIPS_140_2 (
       failFlag = TRUE;
       bbattery_pass[j] = FALSE;
    } else {
-      printf (" %10s", "Pass");
+      printf (" %25s", "Pass");
       bbattery_pass[j] = TRUE;
    }
    ++j;
