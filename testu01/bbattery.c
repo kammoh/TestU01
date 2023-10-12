@@ -4107,7 +4107,7 @@ static lebool WriteReportFIPS_140_2 (
       X += (double) ncount[i] * ncount[i];
    X = 16 * X / 5000 - 5000;
    printf (" %-16s", bbattery_TestNames[j]);
-   printf ("%10.2f       ", X);
+   printf (" %10.2f     ", X);
    p = fbar_ChiSquare2 (15, 12, X);
    bbattery_pVal[j] = p;
    gofw_Writep0 (p);

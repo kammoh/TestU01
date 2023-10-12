@@ -251,15 +251,15 @@ void gofw_Writep0 (double p)
    if ((p >= 0.01) && (p <= 0.99))
       num_WriteD (p, 8, 2, 1);
    else if (p < gofw_Epsilonp)
-      printf ("   eps  ");
+      printf ("    eps     ");
    else if (p < 0.01)
       num_WriteD (p, 8, 2, 2);
    else if (p >= 1.0 - gofw_Epsilonp1)
-      printf (" 1 - eps1");
+      printf ("  1 - eps1  ");
    else if (p < 1.0 - 1.0e-4)
-      printf ("    %.4f", p);
+      printf ("  %1.02f    ", p);
    else {
-      printf (" 1 - ");
+      printf (" 1 -");
       num_WriteD (1.0 - p, 7, 2, 2);
    }
 }
