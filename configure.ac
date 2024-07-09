@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-# AC_PREREQ([2.71])
+# AC_PREREQ([2.72])
 AC_INIT([TestU01],[1.2.3],[lecuyer@iro.umontreal.ca])
 AC_CONFIG_SRCDIR([mylib/num.c])
 AM_INIT_AUTOMAKE
